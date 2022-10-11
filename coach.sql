@@ -14,7 +14,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `coaches` (
   `identifier` varchar(40) NOT NULL,
-  `charid` int(11) NOT NULL,
   `coach` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

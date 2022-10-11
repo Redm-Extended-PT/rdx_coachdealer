@@ -1,3 +1,11 @@
+RDX              = nil
+Citizen.CreateThread(function()
+	while RDX == nil do
+		TriggerEvent('rdx:getSharedObject', function(obj) RDX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 local keys = { ['G'] = 0x760A9C6F, ['S'] = 0xD27782E3, ['W'] = 0x8FD015D8, ['H'] = 0x24978A28, ['G'] = 0x5415BE48, ["ENTER"] = 0xC7B5340A, ['E'] = 0xDFF812F9 }
 
 local pressTime = 0
@@ -16,8 +24,8 @@ local Coaches = {
 		['Desc'] = "level require [0]",
 		['Param'] = {
 			['Price'] = 20,
-			['Model'] = "CART02",
-			['Level'] = 0
+			['Model'] = "CART02"
+			--['Level'] = 0
 		}
 	},
 	[2] = {
@@ -26,8 +34,8 @@ local Coaches = {
 		['Desc'] = "level require [0]",
 		['Param'] = {
 			['Price'] = 35,
-			['Model'] = "COACH2",
-			['Level'] = 3
+			['Model'] = "COACH2"
+			--['Level'] = 3
 		}
 	}
 	
@@ -86,7 +94,7 @@ Citizen.CreateThread( function()
 		if WarMenu.IsMenuOpened('id_Coach') then
 			for i = 1, #Coaches do
 				if WarMenu.Button(Coaches[i]['Text'], Coaches[i]['SubText']) then
-					TriggerServerEvent('elrp:buycoach', Coaches[i]['Param'])
+					TriggerServerEvent('rdx:buycoach', Coaches[i]['Param'])
 			end
 			end
 			WarMenu.Display()
@@ -124,8 +132,8 @@ end)
 
 -- | Spawn Coach | --
 
-RegisterNetEvent( 'elrp:spawnCoach' )
-AddEventHandler( 'elrp:spawnCoach', function ( coach )
+RegisterNetEvent( 'rdx:spawnCoach' )
+AddEventHandler( 'rdx:spawnCoach', function ( coach )
 
 	local player = PlayerPedId()
 
@@ -169,7 +177,7 @@ end
 RegisterCommand("callcoach", function(source, args, raw)
     if recentlySpawned <= 0 then
 				recentlySpawned = 10
-				TriggerServerEvent('elrp:loadcoach')
+				TriggerServerEvent('rdx:loadcoach')
 			else
 				TriggerEvent('chat:systemMessage', 'Please wait ' .. recentlySpawned .. ' seconds before calling your coach.')
 				TriggerEvent('chat:addMessage', {
